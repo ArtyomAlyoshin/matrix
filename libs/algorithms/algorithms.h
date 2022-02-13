@@ -12,5 +12,6 @@ void inputArray(int *a, size_t size);
 void outputArray(int *a, size_t size);
 int maxElementInRow(int *a, int nCols);
 int maxElementInCol(int *a, int nRows);
+int minElementInCol(int *a, int nRows);
 
 #endif //LAB5D_ALGORITHMS_H
