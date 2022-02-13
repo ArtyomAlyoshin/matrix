@@ -4,8 +4,6 @@
 
 int main() {
 
-    int a[2];
-    inputArray(a, 2);
-    outputArray(a, 2);
+
     return 0;
 }
