@@ -17,7 +17,8 @@ matrix createMatrixFromArray(const int *a, size_t nRows,
     return m;
 }
 
-matrix *createArrayOfMatrixFromArray(const int *values,
+matrix *
+createArrayOfMatrixFromArray(const int *values,
                                      size_t nMatrices, size_t nRows, size_t nCols) {
     matrix *ms = getMemArrayOfMatrices(nMatrices, nRows, nCols);
 
@@ -117,4 +118,84 @@ void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int))
     }
     free(criteriaArray);
     free(additionalArray);
+}
+
+bool isSquareMatrix(matrix m) {
+    return (bool) m.nRows == m.nCols;
+}
+
+bool twoMatricesEqual(matrix m1, matrix m2) {
+    if (m1.nRows == m2.nRows && m1.nCols == m2.nCols) {
+        bool isEqual = false;
+        for (size_t i = 0; i < m1.nRows; i++) {
+            for (size_t j = 0; j < m1.nCols; j++) {
+                isEqual = (bool) (m1.values[i][j] == m2.values[i][j]);
+                if (isEqual == false)
+                    return false;
+            }
+        }
+    } else
+        return false;
+    return true;
+}
+
+bool isEMatrix(matrix m) {
+    bool isE = true;
+    size_t i = 0;
+    while (isE && i < m.nRows) {
+        size_t j = 0;
+        while (isE && j < m.nCols) {
+            if (i == j)
+                isE = (bool) (m.values[i][j] == 1);
+            else
+                isE = (bool) (m.values[i][j] == 0);
+            j++;
+        }
+        i++;
+    }
+    return (bool) isE;
+}
+
+bool isSymmetricMatrix(matrix m) {
+
+    bool isSymmetric = true;
+    for (int i = 0; i < m.nRows; ++i)
+        for (int j = 0; j < m.nCols; ++j) {
+            isSymmetric = (bool) (m.values[i][j] == m.values[j][i]);
+            if (isSymmetric == 0)
+                return false;
+        }
+    return isSymmetric;
+}
+
+void transposeSquareMatrix(matrix m) {
+    for (int i = 0; i < m.nRows; ++i) {
+        for (int j = i + 1; j < m.nCols; ++j) {
+            swap_(&m.values[i][j], &m.values[j][i], sizeof(int));
+        }
+    }
+}
+
+position getMinValuePos(matrix m) {
+    position min = (position) {0, 0};
+    for (int i = 0; i < m.nRows; ++i) {
+        for (int j = 0; j < m.nCols; ++j) {
+            position positionNow = (position) {i, j};
+            if ((m.values[positionNow.rowIndex][positionNow.colIndex]) < m.values[min.rowIndex][min.colIndex])
+                min = positionNow;
+        }
+    }
+    return min;
+}
+
+position getMaxValuePos(matrix m) {
+    position max = (position) {0, 0};
+    for (int i = 0; i < m.nRows; ++i) {
+        for (int j = 0; j < m.nCols; ++j) {
+            position positionNow = (position) {i, j};
+            if ((m.values[positionNow.rowIndex][positionNow.colIndex]) > m.values[max.rowIndex][max.colIndex])
+                max = positionNow;
+        }
+    }
+    return max;
 }

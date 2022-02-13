@@ -80,10 +80,71 @@ void test_insertionSortColsMatrixByColCriteria() {
 
 }
 
+void test_twoMatricesEqual_Equal() {
+    matrix m1 = createMatrixFromArray((int[]) {1, 2, 3,
+                                               4, 5, 6,
+                                               7, 8, 9}, 3, 3);
+    matrix m2 = createMatrixFromArray((int[]) {1, 2, 3,
+                                               4, 5, 6,
+                                               7, 8, 9}, 3, 3);
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_isEMatrix_EMatrix() {
+    matrix m = createMatrixFromArray((int[]) {1, 0, 0,
+                                              0, 1, 0,
+                                              0, 0, 1}, 3, 3);
+    assert(isEMatrix(m));
+}
+
+void test_isSymmetricMatrix_isSymmetric() {
+        matrix m = createMatrixFromArray((int[]) {1, 6, 10,
+                                              6, 1, 3,
+                                              10, 3, 1}, 3, 3);
+    assert(isSymmetricMatrix(m));
+}
+
+void test_transposeSquareMatrix_isTransposeTrue() {
+    matrix m = createMatrixFromArray((int[]) {1, 8, 4,
+                                              10, 9, 8,
+                                              3, 11, 2}, 3, 3);
+    transposeSquareMatrix(m);
+
+    matrix expectedMatrix = createMatrixFromArray((int[]) {1, 10, 3,
+                                                           8, 9, 11,
+                                                           4, 8, 2}, 3, 3);
+    assert(twoMatricesEqual(m, expectedMatrix));
+}
+
+void test_getMinValuePos() {
+    matrix m = createMatrixFromArray((int[]) {1, 8, 8,
+                                              8, 8, 8,
+                                              8, 8, 8}, 3, 3);
+    position expectedMinPos = (position){0, 0};
+    position minPos = getMinValuePos(m);
+    assert(minPos.rowIndex == expectedMinPos.rowIndex);
+    assert(minPos.colIndex == expectedMinPos.colIndex);
+}
+
+void test_getMaxValuePos() {
+    matrix m = createMatrixFromArray((int[]) {100, 8, 8,
+                                              8, 8, 8,
+                                              8, 8, 16}, 3, 3);
+    position expectedMinPos = (position){0, 0};
+    position minPos = getMaxValuePos(m);
+    assert(minPos.rowIndex == expectedMinPos.rowIndex);
+    assert(minPos.colIndex == expectedMinPos.colIndex);
+}
 int main() {
     test_swapRows_swapFirstAndSecondRows();
     test_swapColumns_swapFirstAndSecondColumns();
     test_insertionSortRowsMatrixByRowCriteria_Sort();
     test_insertionSortColsMatrixByColCriteria();
+    test_twoMatricesEqual_Equal();
+    test_isEMatrix_EMatrix();
+    test_isSymmetricMatrix_isSymmetric();
+    test_transposeSquareMatrix_isTransposeTrue();
+    test_getMinValuePos();
+    test_getMaxValuePos();
     return 0;
 }
