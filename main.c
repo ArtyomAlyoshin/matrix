@@ -2,17 +2,16 @@
 #include <assert.h>
 #include "libs/data_structures/matrix/matrix.h"
 
-void task1(matrix m) {
-    position maxIndex = getMaxValuePos(m);
-    position minIndex = getMinValuePos(m);
-    swapRows(m, maxIndex.rowIndex, minIndex.rowIndex);
+//функция MAX написана в файле algorithms.c
+void task2(matrix m) {
+    insertionSortRowsMatrixByRowCriteria(m, maxElementInRow);
 }
 
 int main() {
     matrix m = createMatrixFromArray((int[]) {1, 2, 3,
-                                              4, 5, 6,
+                                              4, 5, 12,
                                               7, 8, 9}, 3, 3);
-    task1(m);
+    task2(m);
     outputMatrix(m);
     return 0;
 }
