@@ -1,0 +1,9 @@
+# ninja log v5
+79	2373	6663823374707269	CMakeFiles/lab5d.dir/libs/data_structures/matrix.c.obj	5cdcd5288baf2862
+88	2395	6663823374917138	libs/data_structures/CMakeFiles/data_structures.dir/matrix.c.obj	6e4a0de62fcae7a2
+4	3577	6663823386365072	CMakeFiles/lab5d.dir/libs/algorithms/algorithms.c.obj	5319aa3a73b5e188
+3551	3861	6663823388783571	libs/algorithms/libalgorithms.a	e31d6f875beed07a
+3861	5671	6663823407587763	lab5d.exe	6fb32224e912131d
+74	3344	6663823384496233	CMakeFiles/lab5d.dir/main.c.obj	27fd169242de7ea1
+84	3551	6663823386255138	libs/algorithms/CMakeFiles/algorithms.dir/algorithms.c.obj	93be1bb05432c486
+2396	3583	6663823385975315	libs/data_structures/libdata_structures.a	229c52cb323aa85d
