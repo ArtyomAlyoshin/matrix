@@ -19,7 +19,7 @@ matrix createMatrixFromArray(const int *a, size_t nRows,
 
 matrix *
 createArrayOfMatrixFromArray(const int *values,
-                                     size_t nMatrices, size_t nRows, size_t nCols) {
+                             size_t nMatrices, size_t nRows, size_t nCols) {
     matrix *ms = getMemArrayOfMatrices(nMatrices, nRows, nCols);
 
     int l = 0;
@@ -199,3 +199,20 @@ position getMaxValuePos(matrix m) {
     }
     return max;
 }
+
+matrix mulMatrices(matrix m1, matrix m2) {
+    assert(m1.nCols == m2.nRows);
+    matrix newMatrix = getMemMatrix(m1.nRows, m2.nCols);
+    for (int i = 0; i < m1.nRows; i++) {
+        for (int j = 0; j < m2.nCols; j++) {
+            newMatrix.values[i][j] = 0;
+            for (int k = 0; k < m1.nCols; k++) {
+                newMatrix.values[i][j] += m1.values[i][k] * m2.values[k][j];
+            }
+        }
+    }
+    return (matrix) newMatrix;
+}
+
+
+

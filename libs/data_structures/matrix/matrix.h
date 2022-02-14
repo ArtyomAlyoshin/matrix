@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <stdbool.h>
+#include <assert.h>
 
 #include "../../algorithms/algorithms.h"
 
@@ -101,6 +102,10 @@ matrix createMatrixFromArray(const int *a, size_t nRows,
 matrix *createArrayOfMatrixFromArray(const int *values,
                                      size_t nMatrices, size_t nRows, size_t nCols);
 
+//умножает 2 матрицы
+matrix mulMatrices(matrix m1, matrix m2);
 
+//возвращает квадрат матрицы
+void getSquareOfMatrixIfSymmetric(matrix *m);
 
 #endif //LAB5D_MATRIX_H
