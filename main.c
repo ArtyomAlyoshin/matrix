@@ -1,20 +1,40 @@
 #include <stdio.h>
 #include "libs/data_structures/matrix/matrix.h"
 
-matrix task4(matrix m) {
-    if (isSymmetricMatrix(m)) {
-        return mulMatrices(m, m);
-    } else
-        return m;
+long long getSum(int *a, int size) {
+    int sum = 0;
+    for (size_t i = 0; i < size; ++i) {
+        sum += a[i];
+    }
+    return sum;
+}
+
+bool isUnique(long long *a, int size) {
+    for (size_t i = 1; i < size; ++i) {
+        if (a[i - 1] == a[i])
+            return false;
+    }
+    return true;
+}
+
+matrix task5(matrix m) {
+    int arrayOfSum[m.nRows];
+    for (size_t i = 0; i < m.nRows; ++i) {
+        arrayOfSum[i] = getSum(m.values[i], m.nCols);
+    }
+    if (isUnique(arrayOfSum, m.nRows))
+        transposeSquareMatrix(m);
+    return m;
+
 }
 
 int main() {
-    matrix m1 = createMatrixFromArray((int[]) {7, 4, 7,
-                                               4, 18, 1,
-                                               7, 1, 9
+    matrix m = createMatrixFromArray((int[]) {1, 2, 3,
+                                              4, 5, 6,
+                                              7, 8, 9
     }, 3, 3);
 
-    matrix m2 = task4(m1);
-    outputMatrix(m2);
+    m = task5(m);
+    outputMatrix(m);
     return 0;
 }
