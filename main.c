@@ -1,55 +1,35 @@
 #include <stdio.h>
 #include "libs/data_structures/matrix/matrix.h"
 
-int max2(int a, int b) {
-    return a > b ? a : b;
+int min2(int a, int b) {
+    return a < b ? a : b;
 }
 
-int getSum(int *a, int size) {
-    int sum = 0;
-    for (size_t i = 0; i < size; ++i) {
-        sum += a[i];
-    }
-    return sum;
-}
-
-int findSumOfMaxesOfPseudoDiagonal(matrix m) {
-    int sumArray[m.nCols + m.nRows - 2];
-    int k = 0;
-    for (size_t i = 1, j = 0; i < m.nRows; i++, j++) {
-        int max = m.values[i][0];
-        int duplicate = i;
-        while (i + 1 < m.nRows && j + 1 < m.nCols) {
-            j++;
-            i++;
-            max = max2(max, m.values[i][j]);
+int getMinInArea(matrix m) {
+    position p = getMaxValuePos(m);
+    int min = m.values[p.rowIndex][p.colIndex];
+    int left = p.colIndex;
+    int right = p.rowIndex;
+    for (int i = p.rowIndex - 1; i >= 0; i--) {
+        if (left - 1 >= 0)
+            left--;
+        if (right + 1 < m.nCols)
+            right++;
+        int anotherRight = right;
+        while (anotherRight >= left) {
+            min = min2(min, m.values[i][anotherRight]);
+            anotherRight--;
         }
-        sumArray[k++] = max;
-        j = 0;
-        i = duplicate;
     }
-    for (size_t i = 1, j = 0; i < m.nCols; i++, j++) {
-        int max = m.values[0][i];
-        int duplicate = i;
-        while (i + 1 < m.nCols && j + 1 < m.nRows) {
-            j++;
-            i++;
-            max = max2(max, m.values[j][i]);
-        }
-        sumArray[k++] = max;
-        j = 0;
-        i = duplicate;
-    }
-    int sum = getSum(sumArray, m.nRows + m.nCols - 2);
-    return sum;
+    return min;
 }
 
 
 int main() {
-    matrix m1 = createMatrixFromArray((int[]) {3, 2, 5, 4,
-                                               5, 3, 6, 3,
-                                               3, 2, 1, 2}, 3, 4);
+    matrix m1 = createMatrixFromArray((int[]) {10, 7, 5, 6,
+                                               3, 11, 8, 9,
+                                               4, 1, 12, 2}, 3, 4);
 
-    printf("%d", findSumOfMaxesOfPseudoDiagonal(m1));
+    printf("%d", getMinInArea(m1));
     return 0;
 }
