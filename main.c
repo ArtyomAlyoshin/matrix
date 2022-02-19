@@ -1,32 +1,26 @@
 #include <stdio.h>
 #include "libs/data_structures/matrix/matrix.h"
 
-void sortByDistances(matrix m) {
-    insertionSortRowsMatrixByRowCriteriaF(m, getDistance);
+int countEqClassesByRowsSum(matrix m) {
+    long long rowSums[m.nRows];
+    for (int i = 0; i < m.nRows; i++)
+        rowSums[i] = getSum(m.values[i], m.nCols);
+
+    return countNUnique(rowSums, m.nRows);
 }
 
 
 int main() {
     matrix m1 = createMatrixFromArray(
             (int[]) {
-                    8, 9, 10, 11,
-                    0, 1, 2, 3,
-                    4, 5, 6, 7
+                    7, 1,
+                    2, 7,
+                    5, 4,
+                    4, 3,
+                    1, 6,
+                    8, 0
             },
-            3, 4);
+            6, 2);
 
-    sortByDistances(m1);
-
-    matrix m2 = createMatrixFromArray(
-            (int[]) {
-                    0, 1, 2, 3,
-                    4, 5, 6, 7,
-                    8, 9, 10, 11,
-            },
-            3, 4);
-
-    assert(twoMatricesEqual(m1, m2));
-
-    freeMemMatrix(m1);
-    freeMemMatrix(m2);
+    assert(countEqClassesByRowsSum(m1) == 3);
 }

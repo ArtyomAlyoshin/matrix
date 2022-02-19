@@ -23,4 +23,10 @@ int minElementInCol(int *a, int nRows);
 
 float getDistance(int *a, int n);
 
+int cmp_long_long(const void *pa, const void *pb);
+
+int countNUnique(long long *a, int n);
+
+long long getSum(int *a, int n);
+
 #endif //LAB5D_ALGORITHMS_H

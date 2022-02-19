@@ -51,3 +51,11 @@
 5229	6389	6669777196346674	libs/algorithms/libalgorithms.a	e31d6f875beed07a
 6390	6685	6669777199086875	libs/data_structures/libdata_structures.a	c8d0d1d6a7f67baa
 6686	9807	6669777230341603	lab5d.exe	2b2770fd3b538a13
+113	1391	6669794191063628	CMakeFiles/lab5d.dir/libs/algorithms/algorithms.c.obj	5319aa3a73b5e188
+122	1422	6669794191183568	libs/algorithms/CMakeFiles/algorithms.dir/algorithms.c.obj	93be1bb05432c486
+9	1474	6669794191153572	CMakeFiles/lab5d.dir/main.c.obj	27fd169242de7ea1
+118	1600	6669794193322231	CMakeFiles/lab5d.dir/libs/data_structures/matrix/matrix.c.obj	4bc2dfcb93805b51
+126	1625	6669794193472136	libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj	4bd1cfd759fd5563
+1423	1858	6669794195750725	libs/algorithms/libalgorithms.a	e31d6f875beed07a
+1859	2027	6669794197559605	libs/data_structures/libdata_structures.a	c8d0d1d6a7f67baa
+2027	2852	6669794205494698	lab5d.exe	2b2770fd3b538a13
