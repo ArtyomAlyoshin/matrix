@@ -2,45 +2,60 @@
 #include <string.h>
 #include "libs/data_structures/matrix/matrix.h"
 
-bool isNonDescendingSorted(int *a, int n) {
-    for (int i = 1; i < n; i++)
-        if (a[i] < a[i - 1])
-            return false;
-    return true;
+int countValues(const int *a, int n, int value) {
+    int counter = 0;
+    for (int i = 0; i < n; i++)
+        if (a[i] == value)
+            counter++;
+
+    return counter;
 }
 
-bool hasAllNonDescendingRows(matrix m) {
+int countZeroRows(matrix m) {
+    int zeroCounter = 0;
     for (int i = 0; i < m.nRows; i++)
-        if (!isNonDescendingSorted(m.values[i], m.nCols))
-            return false;
-    return true;
+        if (countValues(m.values[i], m.nCols, 0) == m.nCols)
+            zeroCounter++;
+
+    return zeroCounter;
 }
 
-int countNonDescendingRowsMatrices(matrix *ms, int nMatrix) {
-    int count = 0;
+void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
+    int zeroCount[nMatrix];
     for (int k = 0; k < nMatrix; k++)
-        if (hasAllNonDescendingRows(ms[k]))
-            count++;
+        zeroCount[k] = countZeroRows(ms[k]);
 
-    return count;
+    int max = getMax(zeroCount, nMatrix);
+
+    for (int i = 0; i < nMatrix; i++)
+        if (zeroCount[i] == max)
+            outputMatrix(ms[i]);
 }
 
 int main() {
     matrix *ms = createArrayOfMatrixFromArray(
             (int[]) {
-                    7, 1,
+                    0, 1,
+                    1, 0,
+                    0, 0,
+
+                    1, 1,
+                    2, 1,
                     1, 1,
 
-                    1, 6,
-                    2, 2,
+                    0, 0,
+                    0, 1,
+                    4, 7,
 
-                    5, 4,
-                    2, 3,
+                    2, 0,
+                    0, 1,
+                    0, 0,
 
-                    1, 3,
-                    7, 9
+                    0, 1,
+                    0, 2,
+                    0, 3
             },
-            4, 2, 2);
+            5, 3, 2);
 
-    assert(countNonDescendingRowsMatrices(ms, 4) == 2);
+    printMatrixWithMaxZeroRows(ms, 5);
 }

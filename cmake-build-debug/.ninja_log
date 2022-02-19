@@ -69,3 +69,11 @@
 1848	2670	6669876974054698	lab5d.exe	2b2770fd3b538a13
 14	1314	6669892899004404	CMakeFiles/lab5d.dir/main.c.obj	27fd169242de7ea1
 1315	2627	6669892909842859	lab5d.exe	2b2770fd3b538a13
+179	1621	6669907735343138	CMakeFiles/lab5d.dir/libs/data_structures/matrix/matrix.c.obj	4bc2dfcb93805b51
+19	1679	6669907735562990	CMakeFiles/lab5d.dir/main.c.obj	27fd169242de7ea1
+185	1718	6669907735942756	libs/algorithms/CMakeFiles/algorithms.dir/algorithms.c.obj	93be1bb05432c486
+174	1738	6669907735882785	CMakeFiles/lab5d.dir/libs/algorithms/algorithms.c.obj	5319aa3a73b5e188
+197	1801	6669907737341885	libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj	4bd1cfd759fd5563
+1718	2121	6669907740719922	libs/algorithms/libalgorithms.a	e31d6f875beed07a
+2121	2339	6669907742918561	libs/data_structures/libdata_structures.a	c8d0d1d6a7f67baa
+2340	3373	6669907752992773	lab5d.exe	2b2770fd3b538a13
