@@ -29,4 +29,6 @@ int countNUnique(long long *a, int n);
 
 long long getSum(int *a, int n);
 
+int getMax(int *a, int n);
+
 #endif //LAB5D_ALGORITHMS_H

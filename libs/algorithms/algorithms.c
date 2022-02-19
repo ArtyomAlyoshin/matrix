@@ -52,6 +52,15 @@ int maxElementInCol(int *a, int nRows) {
     return max;
 }
 
+int getMax(int *a, int n) {
+    int max = a[0];
+    for (int i = 1; i < n; i++)
+        if (a[i] > max)
+            max = a[i];
+
+    return max;
+}
+
 int minElementInCol(int *a, int nRows) {
     int min = a[0];
     for (int i = 0; i < nRows; i++) {
