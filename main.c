@@ -2,33 +2,26 @@
 #include <string.h>
 #include "libs/data_structures/matrix/matrix.h"
 
-int countValues(const int *a, int n, int value) {
-    int counter = 0;
-    for (int i = 0; i < n; i++)
-        if (a[i] == value)
-            counter++;
+int getNorm(matrix m) {
+    int norm = abs(m.values[0][0]);
 
-    return counter;
-}
-
-int countZeroRows(matrix m) {
-    int zeroCounter = 0;
     for (int i = 0; i < m.nRows; i++)
-        if (countValues(m.values[i], m.nCols, 0) == m.nCols)
-            zeroCounter++;
+        for (int j = 0; j < m.nCols; j++)
+            if (abs(m.values[i][j]) > norm)
+                norm = abs(m.values[i][j]);
 
-    return zeroCounter;
+    return norm;
 }
 
-void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
-    int zeroCount[nMatrix];
+void printMatrixWithMaxNorm(matrix *ms, int nMatrix) {
+    int norms[nMatrix];
     for (int k = 0; k < nMatrix; k++)
-        zeroCount[k] = countZeroRows(ms[k]);
+        norms[k] = getNorm(ms[k]);
 
-    int max = getMax(zeroCount, nMatrix);
+    int max = getMin(norms, nMatrix);
 
     for (int i = 0; i < nMatrix; i++)
-        if (zeroCount[i] == max)
+        if (norms[i] == max)
             outputMatrix(ms[i]);
 }
 
@@ -47,7 +40,7 @@ int main() {
                     0, 1,
                     4, 7,
 
-                    2, 0,
+                    1, 0,
                     0, 1,
                     0, 0,
 
@@ -57,5 +50,5 @@ int main() {
             },
             5, 3, 2);
 
-    printMatrixWithMaxZeroRows(ms, 5);
+    printMatrixWithMaxNorm(ms, 5);
 }
