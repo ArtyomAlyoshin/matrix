@@ -51,6 +51,7 @@ int maxElementInCol(int *a, int nRows) {
     }
     return max;
 }
+
 int minElementInCol(int *a, int nRows) {
     int min = a[0];
     for (int i = 0; i < nRows; i++) {
@@ -59,4 +60,12 @@ int minElementInCol(int *a, int nRows) {
         }
     }
     return min;
+}
+
+float getDistance(int *a, int n) {
+    float distance = 0;
+    for (int i = 0; i < n; i++)
+        distance += (float) (a[i] * a[i]);
+
+    return sqrtf(distance);
 }

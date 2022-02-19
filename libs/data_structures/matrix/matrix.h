@@ -108,4 +108,6 @@ matrix mulMatrices(matrix m1, matrix m2);
 //возвращает квадрат матрицы
 void getSquareOfMatrixIfSymmetric(matrix *m);
 
+void insertionSortRowsMatrixByRowCriteriaF(matrix m, float (*criteria)(int *, int));
+
 #endif //LAB5D_MATRIX_H

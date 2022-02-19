@@ -1,35 +1,32 @@
 #include <stdio.h>
 #include "libs/data_structures/matrix/matrix.h"
 
-int min2(int a, int b) {
-    return a < b ? a : b;
-}
-
-int getMinInArea(matrix m) {
-    position p = getMaxValuePos(m);
-    int min = m.values[p.rowIndex][p.colIndex];
-    int left = p.colIndex;
-    int right = p.rowIndex;
-    for (int i = p.rowIndex - 1; i >= 0; i--) {
-        if (left - 1 >= 0)
-            left--;
-        if (right + 1 < m.nCols)
-            right++;
-        int anotherRight = right;
-        while (anotherRight >= left) {
-            min = min2(min, m.values[i][anotherRight]);
-            anotherRight--;
-        }
-    }
-    return min;
+void sortByDistances(matrix m) {
+    insertionSortRowsMatrixByRowCriteriaF(m, getDistance);
 }
 
 
 int main() {
-    matrix m1 = createMatrixFromArray((int[]) {10, 7, 5, 6,
-                                               3, 11, 8, 9,
-                                               4, 1, 12, 2}, 3, 4);
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    8, 9, 10, 11,
+                    0, 1, 2, 3,
+                    4, 5, 6, 7
+            },
+            3, 4);
 
-    printf("%d", getMinInArea(m1));
-    return 0;
+    sortByDistances(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    0, 1, 2, 3,
+                    4, 5, 6, 7,
+                    8, 9, 10, 11,
+            },
+            3, 4);
+
+    assert(twoMatricesEqual(m1, m2));
+
+    freeMemMatrix(m1);
+    freeMemMatrix(m2);
 }
