@@ -2,53 +2,45 @@
 #include <string.h>
 #include "libs/data_structures/matrix/matrix.h"
 
-position getLeftMin(matrix m) {
-    int min = m.values[0][0];
-    position minPosition = {0, 0};
-
-    for (int j = 0; j < m.nCols; j++)
-        for (int i = 0; i < m.nRows; i++)
-            if (m.values[i][j] < min) {
-                min = m.values[i][j];
-                minPosition.colIndex = j;
-                minPosition.rowIndex = i;
-            }
-
-    return minPosition;
+bool isNonDescendingSorted(int *a, int n) {
+    for (int i = 1; i < n; i++)
+        if (a[i] < a[i - 1])
+            return false;
+    return true;
 }
 
-void swapPenultimateRow(matrix m) {
-    if (m.nRows < 2) {
-        printf("bad case");
-    }
-
-    int col[m.nRows];
-    position min = getLeftMin(m);
-
+bool hasAllNonDescendingRows(matrix m) {
     for (int i = 0; i < m.nRows; i++)
-        col[i] = m.values[i][min.colIndex];
+        if (!isNonDescendingSorted(m.values[i], m.nCols))
+            return false;
+    return true;
+}
 
-    memcpy(m.values[m.nRows - 2], col, sizeof(int) * m.nCols);
+int countNonDescendingRowsMatrices(matrix *ms, int nMatrix) {
+    int count = 0;
+    for (int k = 0; k < nMatrix; k++)
+        if (hasAllNonDescendingRows(ms[k]))
+            count++;
+
+    return count;
 }
 
 int main() {
-    matrix m1 = createMatrixFromArray(
+    matrix *ms = createArrayOfMatrixFromArray(
             (int[]) {
-                    1, 2, 3,
-                    4, 5, 6,
-                    7, 8, 1,
+                    7, 1,
+                    1, 1,
+
+                    1, 6,
+                    2, 2,
+
+                    5, 4,
+                    2, 3,
+
+                    1, 3,
+                    7, 9
             },
-            3, 3);
+            4, 2, 2);
 
-    swapPenultimateRow(m1);
-
-    matrix m2 = createMatrixFromArray(
-            (int[]) {
-                    1, 2, 3,
-                    1, 4, 7,
-                    7, 8, 1,
-            },
-            3, 3);
-
-    assert(twoMatricesEqual(m1, m2));
+    assert(countNonDescendingRowsMatrices(ms, 4) == 2);
 }
