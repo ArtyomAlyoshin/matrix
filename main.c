@@ -13,7 +13,7 @@ int getNorm(matrix m) {
     return norm;
 }
 
-void printMatrixWithMaxNorm(matrix *ms, int nMatrix) {
+void printMatrixWithMinNorm(matrix *ms, int nMatrix) {
     int norms[nMatrix];
     for (int k = 0; k < nMatrix; k++)
         norms[k] = getNorm(ms[k]);
@@ -28,27 +28,27 @@ void printMatrixWithMaxNorm(matrix *ms, int nMatrix) {
 int main() {
     matrix *ms = createArrayOfMatrixFromArray(
             (int[]) {
-                    0, 1,
-                    1, 0,
-                    0, 0,
+                    0, 1, 0,
+                    1, 0, 0,
+                    0, 0, 0,
 
-                    1, 1,
-                    2, 1,
-                    1, 1,
+                    1, 1, 0,
+                    2, 1,0,
+                    1, 1,0,
 
-                    0, 0,
-                    0, 1,
-                    4, 7,
+                    0, 0,0,
+                    0, 1,0,
+                    4, 7,0,
 
-                    1, 0,
-                    0, 1,
-                    0, 0,
+                    1, 0,0,
+                    0, 1,0,
+                    0, 0,0,
 
-                    0, 1,
-                    0, 2,
-                    0, 3
+                    0, 1,0,
+                    0, 2,0,
+                    0, 3,0
             },
-            5, 3, 2);
+            5, 3, 3);
 
-    printMatrixWithMaxNorm(ms, 5);
+    printMatrixWithMinNorm(ms, 5);
 }
