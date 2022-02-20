@@ -81,23 +81,22 @@ float getDistance(int *a, int n) {
     return sqrtf(distance);
 }
 
+//чуть подправил компаратор
 int cmp_long_long(const void *pa, const void *pb) {
     long long arg1 = *(const long long *) pa;
     long long arg2 = *(const long long *) pb;
 
     if (arg1 < arg2)
         return -1;
-    if (arg1 > arg2)
+    else if (arg1 > arg2)
         return 1;
-    return 0;
+    else
+        return 0;
 }
 
+//исправление лишниго ифа в 10 задании
 int countNUnique(long long *a, int n) {
-    if (n == 1)
-        return 1;
-
     qsort(a, n, sizeof(long long), cmp_long_long);
-
     int counterOfUnique = 1;
     int i = 1;
     while (i < n) {
@@ -105,7 +104,6 @@ int countNUnique(long long *a, int n) {
             counterOfUnique++;
         i++;
     }
-
     return counterOfUnique;
 }
 

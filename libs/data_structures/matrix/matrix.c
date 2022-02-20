@@ -101,8 +101,8 @@ void insertionSortRowsMatrixByRowCriteria(matrix m,
     free(array);
 }
 
-
-void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int)) {
+//исправлена сортировка
+void selectionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int)) {
     int *criteriaArray = (int *) malloc(sizeof(int) * m.nCols);
     int *additionalArray = (int *) malloc(sizeof(int) * m.nRows);
     for (int i = 0; i < m.nCols; ++i) {
@@ -110,11 +110,14 @@ void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int))
             additionalArray[j] = m.values[j][i];
         criteriaArray[i] = criteria(additionalArray, m.nRows);
     }
-    for (int i = 0; i < m.nCols; ++i) {
-        for (int j = i; j > 0 && criteriaArray[j - 1] > criteriaArray[j]; j--) {
-            swap_(&criteriaArray[j - 1], &criteriaArray[j], sizeof(int));
-            swapColumns(m, j, j - 1);
-        }
+
+    for (int i = 0; i < m.nCols - 1; i++) {
+        int minPos = i;
+        for (int j = i + 1; j < m.nCols; j++)
+            if (criteriaArray[j] < criteriaArray[minPos])
+                minPos = j;
+        swap(&criteriaArray[i], &criteriaArray[minPos]);
+        swapColumns(m, i, minPos);
     }
     free(criteriaArray);
     free(additionalArray);
@@ -124,8 +127,11 @@ bool isSquareMatrix(matrix m) {
     return (bool) m.nRows == m.nCols;
 }
 
+//исправлен иф
 bool twoMatricesEqual(matrix m1, matrix m2) {
-    if (m1.nRows == m2.nRows && m1.nCols == m2.nCols) {
+    if (m1.nRows == m2.nRows && m1.nCols == m2.nCols)
+        return false;
+    else {
         bool isEqual = false;
         for (size_t i = 0; i < m1.nRows; i++) {
             for (size_t j = 0; j < m1.nCols; j++) {
@@ -134,9 +140,8 @@ bool twoMatricesEqual(matrix m1, matrix m2) {
                     return false;
             }
         }
-    } else
-        return false;
-    return true;
+        return isEqual;
+    }
 }
 
 bool isEMatrix(matrix m) {
@@ -156,11 +161,11 @@ bool isEMatrix(matrix m) {
     return (bool) isE;
 }
 
+//справлен индекс
 bool isSymmetricMatrix(matrix m) {
-
     bool isSymmetric = true;
     for (int i = 0; i < m.nRows; ++i)
-        for (int j = 0; j < m.nCols; ++j) {
+        for (int j = i + 1; j < m.nCols; ++j) {
             isSymmetric = (bool) (m.values[i][j] == m.values[j][i]);
             if (isSymmetric == 0)
                 return false;

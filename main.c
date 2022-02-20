@@ -2,53 +2,44 @@
 #include <string.h>
 #include "libs/data_structures/matrix/matrix.h"
 
-int getNorm(matrix m) {
-    int norm = abs(m.values[0][0]);
+
+
+//исправление 6 задания
+bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
+    matrix mulMatrix = mulMatrices(m1, m2);
+    bool EMatrix = isEMatrix(mulMatrix);
+    freeMemMatrix(mulMatrix);
+    return EMatrix;
+}
+
+int max2(int a, int b) {
+    return a > b ? a : b;
+}
+
+//упрощена задача 7
+long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
+    int size = m.nRows + m.nCols - 1;
+    int sumArray[size];
+    for (int i = 0; i < size; ++i) {
+        sumArray[i] = 0;
+    }
 
     for (int i = 0; i < m.nRows; i++)
         for (int j = 0; j < m.nCols; j++)
-            if (abs(m.values[i][j]) > norm)
-                norm = abs(m.values[i][j]);
+            if (j != i) {
+                int numberOfPsevdoDiagonals = j - i + 2;
+                sumArray[numberOfPsevdoDiagonals] = max2(sumArray[numberOfPsevdoDiagonals], m.values[i][j]);
+            }
 
-    return norm;
+    return getSum(sumArray, size);
 }
 
-void printMatrixWithMinNorm(matrix *ms, int nMatrix) {
-    int norms[nMatrix];
-    for (int k = 0; k < nMatrix; k++)
-        norms[k] = getNorm(ms[k]);
-
-    int max = getMin(norms, nMatrix);
-
-    for (int i = 0; i < nMatrix; i++)
-        if (norms[i] == max)
-            outputMatrix(ms[i]);
-}
 
 int main() {
-    matrix *ms = createArrayOfMatrixFromArray(
-            (int[]) {
-                    0, 1, 0,
-                    1, 0, 0,
-                    0, 0, 0,
+    matrix m1 = createMatrixFromArray((int[]) {3, 2, 5, 4,
+                                               1, 3, 6, 3,
+                                               3, 2, 1, 2}, 3, 4);
 
-                    1, 1, 0,
-                    2, 1,0,
-                    1, 1,0,
-
-                    0, 0,0,
-                    0, 1,0,
-                    4, 7,0,
-
-                    1, 0,0,
-                    0, 1,0,
-                    0, 0,0,
-
-                    0, 1,0,
-                    0, 2,0,
-                    0, 3,0
-            },
-            5, 3, 3);
-
-    printMatrixWithMinNorm(ms, 5);
+    printf("%d", findSumOfMaxesOfPseudoDiagonal(m1));
+    return 0;
 }
